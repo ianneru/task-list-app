@@ -1,6 +1,9 @@
 # Task List
 
-## Features
+## Tecnologias
+
+>1. Angular 4.
+>2. Bootstrap.
 
 ## Features
 
