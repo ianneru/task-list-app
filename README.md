@@ -1,6 +1,5 @@
-# Angular 4 Task List
+# Task List
 
-## Development server
+## Como utilizar
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
+Rodar `ng serve` para servidor de desenvolvimento. Navegar para `http://localhost:4200/`.
