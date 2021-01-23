@@ -2,10 +2,12 @@
 
 ## Features
 
-1. Listagem de Tarefas.
-2. Adicionar Tarefas.
-3. Editar Tarefas.
-4. Excluir Tarefas.
+## Features
+
+>1. Listagem de Tarefas.
+>2. Adicionar Tarefas.
+>3. Editar Tarefas.
+>4. Excluir Tarefas.
 
 ## Como utilizar
 
