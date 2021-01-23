@@ -1,4 +1,4 @@
-# Angular 4 Sample APP
+# Angular 4 Task List
 
 This source code is part of tutorial[Getting Started Angular 4 using Angular CLI](https://www.djamware.com/post/58d9a49b80aca7105ed7d3f7/getting-started-angular-4-using-angular-cli)
 
