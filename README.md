@@ -14,4 +14,5 @@
 
 ## Como utilizar
 
-Rodar `ng serve` para servidor de desenvolvimento. Navegar para `http://localhost:4200/`.
+>1.Rodar `npm install`.
+>2.Rodar `ng serve` para servidor de desenvolvimento. Navegar para `http://localhost:4200/`.
