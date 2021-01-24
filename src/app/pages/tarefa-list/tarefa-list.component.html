@@ -1,26 +1,33 @@
+<app-header></app-header>
 <div class="container" style="margin-top: 70px;">
+  <div style="margin-bottom: 5px;">
+    <button class="btn btn-primary" routerLink="/tarefa-create">Criar Tarefa</button>
+  </div>
+  
   <table class="table table-hover table-responsive">
     <thead>
       <tr>
-
         <th>Título</th>
         <th>Descrição</th>
         <th>Conteúdo</th>
         <th>Concluído</th>
+        <td>Data Conclusão</td>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let tarefa of tarefaList">
-
-
         <td> {{ tarefa.descricao }}</td>
         <td> {{ tarefa.titulo }}</td>
         <td> {{ tarefa.conteudo }}</td>
-        <td> {{ tarefa.concluido }}</td>
-        <td>
-          <button class="btn btn-primary" (click)="editTarefa(tarefa)"> Editar</button>
-          <button class="btn btn-secondary" (click)="deleteTarefa(tarefa)"> Remover</button>
+        <td *ngIf="tarefa.concluido"> Sim</td>
+        <td *ngIf="!tarefa.concluido"> Não</td>
+        <td *ngIf="tarefa.dataConclusao"> {{tarefa.dataConclusaoFormat}}</td>
+        <td *ngIf="!tarefa.dataConclusao"> </td>
+        <td class="side-by-side">
+          <button class="btn btn-primary btn-sm ml-2" [routerLink]="['/tarefa-update', tarefa.id]"> Editar</button>
+          <button class="btn btn-primary btn-sm ml-2" *ngIf="!tarefa.concluido" (click)="concluirTarefa(tarefa)"> Concluir</button>
+          <button class="btn btn-secondary btn-sm ml-2" (click)="deleteTarefa(tarefa)"> Remover</button>
         </td>
       </tr>
     </tbody>

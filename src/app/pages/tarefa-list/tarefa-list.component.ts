@@ -1,35 +1,52 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalService } from 'app/services/global.service';
+import { AuthService } from 'app/services/auth/auth.service';
+import { Tarefa } from 'app/services/tarefa/tarefa.model';
+import { TarefaService } from 'app/services/tarefa/tarefa.service';
 
 @Component({
   selector: 'app-tarefa-list',
   templateUrl: './tarefa-list.component.html',
   styleUrls: ['./tarefa-list.component.scss'],
-  providers : [GlobalService]
+  providers : [AuthService]
 })
 export class TarefaListComponent implements OnInit {
   
   tarefaList : any;
 
-  constructor(private globalService : GlobalService) { }
+  constructor(private tarefaService : TarefaService) { }
 
   ngOnInit() {
-    this.getTarefas().then(result => this.tarefaList = result);
+    this.loadTarefas();    
   }
 
-  getTarefas() : Promise<any> 
+  loadTarefas()
   {
-      return this.globalService.get('Tarefa');
-  }
+    this.tarefaService.getAll()
+      .subscribe((data: any[]) => {
+          let _data = data.filter((number) => !number.dataRemocao);
+          debugger;
+          for(let val of _data){
+            val.dataConclusaoFormat = new Date(val.dataConclusao).toLocaleDateString();
+          }
+          this.tarefaList = _data;
+      });
 
+  }
+  concluirTarefa(tarefa : any) 
+  {
+     tarefa.concluido = true;
+     tarefa.dataConclusao = new Date();
+     this.tarefaService.update(tarefa)
+      .subscribe((data: any) => {
+        this.loadTarefas();
+    });
+  }
   deleteTarefa(tarefa : any) 
   {
-     this.globalService.delete('Tarefa/'+tarefa.id)
-      .then((result) =>{
-          debugger; 
-          this.tarefaList = this.tarefaList.filter(item => item !== tarefa);
-        } 
-      );
+     this.tarefaService.delete(tarefa.id)
+      .subscribe((data: any) => {
+        this.loadTarefas();
+    });
   }
 
 }

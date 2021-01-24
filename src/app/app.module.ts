@@ -7,34 +7,44 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { TarefaListComponent } from './pages/tarefa-list/tarefa-list.component';
 import { TarefaCreateComponent } from './pages/tarefa-create/tarefa-create.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AuthenticationGuard } from './services/authentication-guard.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { HeaderComponent } from './header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthInterceptor } from './router/auth/auth.interceptor';
+//import { AuthJwtInterceptor } from './router/auth/auth-jwt.interceptor';
+import { AppRoutingModule } from './app-routing.module';
+import { AuthService } from './services/auth/auth.service';
+import { TarefaService } from './services/tarefa/tarefa.service';
+import { AuthGuard } from './router/auth/auth.guard';
+import { TarefaUpdateComponent } from './pages/tarefa-update/tarefa-update.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TarefaListComponent,
     TarefaCreateComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent,
+    TarefaUpdateComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    AppRoutingModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', redirectTo: 'tarefa-list', pathMatch: 'full' },
-      { path: 'tarefa-list', component: TarefaListComponent },
-      { path: 'tarefa-create', component: TarefaCreateComponent }
-    ]),
-    HttpClientModule
+    HttpClientModule,
+
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [AuthenticationGuard,
-              { provide: 'env', useValue: environment },
+  providers: [{ provide: 'env', useValue: environment },
+              { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+              //{ provide: HTTP_INTERCEPTORS, useClass: AuthJwtInterceptor, multi: true },
+              AuthService,
+              TarefaService,
+              AuthGuard
   ],
   bootstrap: [AppComponent]
 })
