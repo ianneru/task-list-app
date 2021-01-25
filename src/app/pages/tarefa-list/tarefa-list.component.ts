@@ -24,9 +24,9 @@ export class TarefaListComponent implements OnInit {
     this.tarefaService.getAll()
       .subscribe((data: any[]) => {
           let _data = data.filter((number) => !number.dataRemocao);
-          debugger;
+
           for(let val of _data){
-            val.dataConclusaoFormat = new Date(val.dataConclusao).toLocaleDateString();
+            val.dataConclusaoFormat = `${new Date(val.dataConclusao).toLocaleDateString()} ${new Date(val.dataConclusao).toLocaleTimeString()}`;
           }
           this.tarefaList = _data;
       });
@@ -35,7 +35,7 @@ export class TarefaListComponent implements OnInit {
   concluirTarefa(tarefa : any) 
   {
      tarefa.concluido = true;
-     tarefa.dataConclusao = new Date();
+     tarefa.dataConclusao = new Date().toLocaleTimeString();
      this.tarefaService.update(tarefa)
       .subscribe((data: any) => {
         this.loadTarefas();
@@ -43,7 +43,8 @@ export class TarefaListComponent implements OnInit {
   }
   deleteTarefa(tarefa : any) 
   {
-     this.tarefaService.delete(tarefa.id)
+    tarefa.dataRemocao = new Date().toLocaleTimeString();
+    this.tarefaService.update(tarefa)
       .subscribe((data: any) => {
         this.loadTarefas();
     });

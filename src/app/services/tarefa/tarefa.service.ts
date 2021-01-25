@@ -63,7 +63,7 @@ export class TarefaService {
   }
 
   errorHandler(error: any) {
-    debugger;
+
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;

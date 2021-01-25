@@ -3,45 +3,34 @@
   <div style="margin-bottom: 5px;">
     <button class="btn btn-primary" routerLink="/tarefa-create">Criar Tarefa</button>
   </div>
-  
-  <table class="table table-hover table-responsive">
-    <thead>
-      <tr>
-        <th>Título</th>
-        <th>Descrição</th>
-        <th>Conteúdo</th>
-        <th>Concluído</th>
-        <td>Data Conclusão</td>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let tarefa of tarefaList">
-        <td> {{ tarefa.descricao }}</td>
-        <td> {{ tarefa.titulo }}</td>
-        <td> {{ tarefa.conteudo }}</td>
-        <td *ngIf="tarefa.concluido"> Sim</td>
-        <td *ngIf="!tarefa.concluido"> Não</td>
-        <td *ngIf="tarefa.dataConclusao"> {{tarefa.dataConclusaoFormat}}</td>
-        <td *ngIf="!tarefa.dataConclusao"> </td>
-        <td class="side-by-side">
-          <button class="btn btn-primary btn-sm ml-2" [routerLink]="['/tarefa-update', tarefa.id]"> Editar</button>
-          <button class="btn btn-primary btn-sm ml-2" *ngIf="!tarefa.concluido" (click)="concluirTarefa(tarefa)"> Concluir</button>
-          <button class="btn btn-secondary btn-sm ml-2" (click)="deleteTarefa(tarefa)"> Remover</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="card text-center" *ngIf="selectedContact">
-      <div class="card-header">
-        # {{selectedContact.id}}
-      </div>
-      <div class="card-block">
-        <h4 class="card-title">{{selectedContact.name}}</h4>
-        <p class="card-text">
-          {{selectedContact.description}}
-        </p>    
-      </div>
-
-    </div>
+  <div class="">
+    <table class="table table-stripped table-responsive">
+      <thead>
+        <tr>
+          <th style="width: 26.66%">Título</th>
+          <th style="width: 26.66%">Descrição</th>
+          <th style="width: 26.66%">Conteúdo</th>
+          <th style="width: 6.66%"> Concluído</th>
+          <th style="width: 26.66%">Data Conclusão</th>
+          <th style="width: 16.66%">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tarefa of tarefaList">
+          <td class="word-wrap"> {{ tarefa.descricao }}</td>
+          <td class="word-wrap"> {{ tarefa.titulo }}</td>
+          <td class="word-wrap"> {{ tarefa.conteudo }}</td>
+          <td *ngIf="tarefa.dataConclusao"> Sim</td>
+          <td *ngIf="!tarefa.dataConclusao"> Não</td>
+          <td *ngIf="tarefa.dataConclusao"> {{tarefa.dataConclusaoFormat}}</td>
+          <td *ngIf="!tarefa.dataConclusao"> </td>
+          <td class="side-by-side">
+            <button class="btn btn-primary btn-sm ml-2" [routerLink]="['/tarefa-update', tarefa.id]"> Editar</button>
+            <button class="btn btn-primary btn-sm ml-2" *ngIf="!tarefa.concluido" (click)="concluirTarefa(tarefa)"> Concluir</button>
+            <button class="btn btn-secondary btn-sm ml-2" (click)="deleteTarefa(tarefa)"> Remover</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
